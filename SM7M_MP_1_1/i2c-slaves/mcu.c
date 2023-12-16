@@ -196,6 +196,8 @@ void mcu_process(void)
 	switch (mcu_ctx.cmd) {
 	case CMD_POWER_OFF:
 		eeprom_log_power_off_reason(EEPROM_POWER_OFF_REASON_POWER_OFF);
+		gpio_clear(GPIOA, GPIO2);
+		gpio_set(GPIOA, GPIO7);
 		power_off();
 		wdt_reset();
 		break;

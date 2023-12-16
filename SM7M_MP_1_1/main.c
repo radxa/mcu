@@ -43,6 +43,9 @@ int main(void)
 	clock_init();
 	system_init();
 
+	gpio_clear(GPIOA, GPIO7);
+	gpio_set(GPIOA, GPIO2);
+
 	//rst_key_init();
 	timer_mdelay(100);
 
@@ -64,35 +67,35 @@ int main(void)
 	//timer_mdelay(200);
 
 	/* check if i am in test board and if we need enter test mode */
-	if (detect_test_mode() == TEST_MODE_HALT) {
+	// if (detect_test_mode() == TEST_MODE_HALT) {
 
-		mcu_set_test_mode(true);
-		led_set_frequency(10);
-		/* convert MCU_INT from input to output */
-		gpio_clear(MCU_INT_PORT, MCU_INT_PIN);
-		gpio_set_output_options(MCU_INT_PORT, GPIO_OTYPE_PP,
-					GPIO_OSPEED_VERYHIGH, MCU_INT_PIN);
-		gpio_mode_setup(MCU_INT_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE,
-				MCU_INT_PIN);
+	// 	mcu_set_test_mode(true);
+	// 	led_set_frequency(10);
+	// 	/* convert MCU_INT from input to output */
+	// 	gpio_clear(MCU_INT_PORT, MCU_INT_PIN);
+	// 	gpio_set_output_options(MCU_INT_PORT, GPIO_OTYPE_PP,
+	// 				GPIO_OSPEED_VERYHIGH, MCU_INT_PIN);
+	// 	gpio_mode_setup(MCU_INT_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE,
+	// 			MCU_INT_PIN);
 
-		set_board_type(SM7M);
+	// 	set_board_type(SM7M);
 
-		i2c_slave_init(&i2c2_slave_ctx, (void *)I2C2_BASE,
-			       I2C2_OA1, I2C2_OA2, I2C2_OA2_MASK);
-		mcu_test_init(&i2c2_slave_ctx);
-		nvic_enable_irq(NVIC_I2C2_IRQ);
-		i2c_slave_start(&i2c2_slave_ctx);
+	// 	i2c_slave_init(&i2c2_slave_ctx, (void *)I2C2_BASE,
+	// 		       I2C2_OA1, I2C2_OA2, I2C2_OA2_MASK);
+	// 	mcu_test_init(&i2c2_slave_ctx);
+	// 	nvic_enable_irq(NVIC_I2C2_IRQ);
+	// 	i2c_slave_start(&i2c2_slave_ctx);
 
-		while (detect_test_mode() != TEST_MODE_RUN) {
-			mcu_process();
-			if (!mcu_get_test_mode())
-				break;
-		}
+	// 	while (detect_test_mode() != TEST_MODE_RUN) {
+	// 		mcu_process();
+	// 		if (!mcu_get_test_mode())
+	// 			break;
+	// 	}
 
-		set_board_type(SM7M_MP_1_1);
-		nvic_disable_irq(NVIC_I2C2_IRQ);
-		i2c_slave_stop(&i2c2_slave_ctx);
-	}
+	// 	set_board_type(SM7M_MP_1_1);
+	// 	nvic_disable_irq(NVIC_I2C2_IRQ);
+	// 	i2c_slave_stop(&i2c2_slave_ctx);
+	// }
 	/* reset MCU_INT */
 	gpio_clear(MCU_INT_PORT, MCU_INT_PIN);
 	gpio_mode_setup(MCU_INT_PORT, GPIO_MODE_INPUT, GPIO_PUPD_PULLUP,
