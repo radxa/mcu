@@ -13,6 +13,7 @@ void pin_init(void)
 	GPIO_OSPEEDR(GPIOA) =
 	(GPIO_OSPEEDR(GPIOA) & ~0xc3ff0000) | (GPIO_OSPEED_LOW << (8 * 2)) |
 	(GPIO_OSPEED_LOW << (9 * 2)) | (GPIO_OSPEED_LOW << (10 * 2)) |
+	(GPIO_OSPEED_LOW << (2 * 2)) | (GPIO_OSPEED_LOW << (7 * 2)) |
 	(GPIO_OSPEED_LOW << (11 * 2)) | 
 	(GPIO_OSPEED_LOW << (12 * 2)) | (GPIO_OSPEED_LOW << (15 * 2));
 	/* pull-up pull-down */
@@ -20,6 +21,7 @@ void pin_init(void)
 	(GPIO_PUPDR(GPIOA) & ~0xc3ff0fff) | (GPIO_PUPD_NONE << (0 * 2)) | 
 	(GPIO_PUPD_NONE << (1 * 2)) | (GPIO_PUPD_NONE << (2 * 2)) | 
 	(GPIO_PUPD_NONE << (3 * 2)) | (GPIO_PUPD_NONE << (4 * 2)) | 
+	(GPIO_PUPD_NONE << (7 * 2)) | 
 	(GPIO_PUPD_NONE << (5 * 2)) | (GPIO_PUPD_PULLDOWN << (8 * 2)) | 
 	(GPIO_PUPD_PULLDOWN << (9 * 2)) | (GPIO_PUPD_PULLDOWN << (10 * 2)) | 
 	(GPIO_PUPD_PULLDOWN << (11 * 2)) | (GPIO_PUPD_PULLDOWN << (12 * 2)) | 
@@ -30,10 +32,10 @@ void pin_init(void)
 	/* mode, input, output, alternate function or analog */
 	GPIO_MODER(GPIOA) = 
 	(GPIO_MODER(GPIOA) & ~0xc3ffffff) |  (GPIO_MODE_ANALOG << (0 * 2)) | 
-	(GPIO_MODE_ANALOG << (1 * 2)) | (GPIO_MODE_INPUT << (2 * 2)) | 
+	(GPIO_MODE_ANALOG << (1 * 2)) | (GPIO_MODE_OUTPUT << (2 * 2)) | 
 	(GPIO_MODE_INPUT << (3 * 2)) | (GPIO_MODE_ANALOG << (4 * 2)) | 
 	(GPIO_MODE_INPUT << (5 * 2)) | (GPIO_MODE_INPUT << (6 * 2)) | 
-	(GPIO_MODE_ANALOG << (7 * 2)) | (GPIO_MODE_OUTPUT << (8 * 2)) | 
+	(GPIO_MODE_OUTPUT << (7 * 2)) | (GPIO_MODE_OUTPUT << (8 * 2)) | 
 	(GPIO_MODE_OUTPUT << (9 * 2)) | (GPIO_MODE_OUTPUT << (10 * 2)) | 
 	(GPIO_MODE_OUTPUT << (11 * 2)) | (GPIO_MODE_OUTPUT << (12 * 2)) | 
 	(GPIO_MODE_OUTPUT << (15 * 2));
